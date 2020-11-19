@@ -12,9 +12,10 @@ figure(1)
 plot(x,y,'b.')
 xlabel('x data')
 ylabel('y data') 
-% Find covariance matrix and manually find eigensystem
+% Find covariance matrix, manually find eigensystem, find weights matrix
 A = cov(x,y);
-[E,A] = eigs(A);
+[E,A1] = eigs(A);
+W = E * 1/(sqrt(A1));
 % Perform PCA and plot vectors on scatter plot
 [pcs, trans, evs] = pca(datam);
 figure(2)
@@ -41,14 +42,13 @@ ylabel('y data')
 % Perform PCA on new dataset
 [pcs1,trans1,evs1] = pca(datam1);
 
-
-
 if eq(mean(x),5.0195) % Test for randomness
     "rnd is default, data is not random"
 else
     "Warning: data is random"
 end
 
+50 * (1/1000) * (0.22/1) * (144.21/1)
 
 %% Question 2
 
@@ -107,3 +107,7 @@ dydt = [
     ];
 
 end
+
+
+
+
