@@ -1,6 +1,8 @@
 % Qbio 2 Project 1
 rng('default')
 s = rng;
+
+
 %% Question 1
 u = random('norm',5,1,1000,1);
 v = random('norm',5,1,1000,1);
@@ -50,7 +52,28 @@ end
 
 50 * (1/1000) * (0.22/1) * (144.21/1)
 
+
+
+%% Question 2 testing area
+
+a0 = 4;
+a = 1 ;
+b = 0.01;
+tau = 0.005;
+
+m1 = [(1-tau) 0 0 0 0 -tau*a tau*a0; 
+    tau*b (1-(tau*b)) 0 0 0 0 0; 
+    0 -tau*a (1-tau) 0 0 0 tau*a0;
+    0 0 tau*b (1-(tau*b)) 0 0 0;
+    0 0 0 -tau*a (1-tau) 0 tau*a0;
+    0 0 0 0 tau*b (1-(tau*b)) 0;
+    0 0 0 0 0 0 1
+    ];
+
+[E,V] = eigs(m1);
+
 %% Question 2
+
 
 % Simulation parameters
 
