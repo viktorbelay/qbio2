@@ -14,7 +14,12 @@ xlabel('x data')
 ylabel('y data') 
 % Find covariance matrix and manually find eigensystem
 A = cov(x,y);
-[E,A] = eigs(A);
+[E,A1] = eigs(A);
+
+U = 1./A1;
+U1 = [U(1) 0; 0 U(2,2)];
+U2 = sqrt(U1);
+W = E*U2;
 % Perform PCA and plot vectors on scatter plot
 [pcs, trans, evs] = pca(datam);
 figure(2)
@@ -39,9 +44,14 @@ plot(xcs,ycs,'.')
 xlabel('x data')
 ylabel('y data') 
 % Perform PCA on new dataset
+A22 = cov(xcs,ycs);
+[E1,A2] = eigs(A22);
 [pcs1,trans1,evs1] = pca(datam1);
 
-
+V = 1./A2;
+V1 = [V(1) 0; 0 V(2,2)];
+V2 = sqrt(V1);
+W2 = E*V2;
 
 if eq(mean(x),5.0195) % Test for randomness
     "rnd is default, data is not random"
@@ -92,7 +102,7 @@ function dydt = de(t,y)
 % ODE parameters
 
 a0 = 4;
-a = 0.5 ;
+a = 2.5 ;
 b = 0.01;
 tau = 0.005;
 
@@ -107,3 +117,8 @@ dydt = [
     ];
 
 end
+
+
+
+
+
