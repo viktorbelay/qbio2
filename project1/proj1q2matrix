@@ -1,0 +1,58 @@
+%% Question 2 
+
+a0 = 4;
+a = 2.5 ;
+b = 0.01;
+tau = 0.005;
+t_span = 200000 ;
+
+m1 = [(1-tau) 0 0 0 0 -tau*a tau*a0; 
+    tau*b (1-(tau*b)) 0 0 0 0 0; 
+    0 -tau*a (1-tau) 0 0 0 tau*a0;
+    0 0 tau*b (1-(tau*b)) 0 0 0;
+    0 0 0 -tau*a (1-tau) 0 tau*a0;
+    0 0 0 0 tau*b (1-(tau*b)) 0;
+    0 0 0 0 0 0 1
+    ];
+
+[E,V] = eigs(m1); % Eigenvalues and eigenvectors of the above system
+x = [0 0 0 1 1 1 1]; % initial conditions
+t = []; % Set up empty array for time in for loop
+
+for i = 1:t_span
+    
+    t = [t.'; i].';
+    
+    x(i+1,:) = m1 * x(i,:)';
+   
+end
+
+time = [t.'; t(1000)];
+
+subplot(6,1,1)
+plot(time,x(:,1))
+ylabel('Concentration of mRNA A')
+
+subplot(6,1,2)
+plot(time,x(:,4))
+ylabel('Concentration of protein A')
+
+subplot(6,1,3)
+plot(time,x(:,2))
+ylabel('Concentration of mRNA B')
+
+subplot(6,1,4)
+plot(time,x(:,5))
+ylabel('Concentration of protein B')
+
+subplot(6,1,5)
+plot(time,x(:,3))
+ylabel('Concentration of mRNA C')
+
+subplot(6,1,6)
+plot(time,x(:,6))
+ylabel('Concentration of protein C')
+xlabel('time')
+
+
+
