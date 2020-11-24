@@ -1,10 +1,13 @@
 %% Question 2 
+tic 
 
 a0 = 4;
-a = 2.5 ;
+a =  1;
 b = 0.01;
 tau = 0.005;
-t_span = 200000 ;
+t_span = 200;
+
+
 
 m1 = [(1-tau) 0 0 0 0 -tau*a tau*a0; 
     tau*b (1-(tau*b)) 0 0 0 0 0; 
@@ -15,8 +18,8 @@ m1 = [(1-tau) 0 0 0 0 -tau*a tau*a0;
     0 0 0 0 0 0 1
     ];
 
-[E,V] = eigs(m1); % Eigenvalues and eigenvectors of the above system
-x = [0 0 0 1 1 1 1]; % initial conditions
+[E,V] = eig(m1); % Eigenvalues and eigenvectors of the above system
+x = [0 1 0 0 0 0 0]; % initial conditions
 t = []; % Set up empty array for time in for loop
 
 for i = 1:t_span
@@ -27,32 +30,32 @@ for i = 1:t_span
    
 end
 
-time = [t.'; t(1000)];
+time = [t.'; t(t_span)];
 
 subplot(6,1,1)
-plot(time,x(:,1))
+plot(time,x(:,1),'k','linewidth',3)
 ylabel('Concentration of mRNA A')
 
 subplot(6,1,2)
-plot(time,x(:,4))
+plot(time,x(:,2),'k','linewidth',3)
 ylabel('Concentration of protein A')
 
 subplot(6,1,3)
-plot(time,x(:,2))
+plot(time,x(:,3),'k','linewidth',3)
 ylabel('Concentration of mRNA B')
 
 subplot(6,1,4)
-plot(time,x(:,5))
+plot(time,x(:,4),'k','linewidth',3)
 ylabel('Concentration of protein B')
 
 subplot(6,1,5)
-plot(time,x(:,3))
+plot(time,x(:,5),'k','linewidth',3)
 ylabel('Concentration of mRNA C')
 
 subplot(6,1,6)
-plot(time,x(:,6))
+plot(time,x(:,6),'k','linewidth',3)
 ylabel('Concentration of protein C')
 xlabel('time')
 
-
-
+toc
+% Would be good to show how much time this takes vs ode45
