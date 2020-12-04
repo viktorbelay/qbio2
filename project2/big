@@ -1,0 +1,80 @@
+n = 2;
+alpha = [];
+pointx1 = [];
+pointy1 =[];
+
+pointx2 = [];
+pointy2 =[];
+
+pointx3 = [];
+pointy3 =[];
+
+test = [];
+
+for a = 1:20
+    
+
+    for u = [0.7 5 10]
+        for v = [0.7 5 10]
+            x3 = fsolve(@(x) [ x(1) - a/(1+x(2)^n);x(2) - a/(1+x(1)^n)], [u;v]);
+            
+            if u+v == 1.4 ; 
+    
+                pointx1 = [pointx1.'; x3(1)].'; % Collects x values for equilibrium point 1
+                pointy1 = [pointy1.'; x3(2)].'; % Collects y values for equilibrium point 1
+    
+            end
+            
+            if u==0.7;
+                if v == 10;
+    
+                    pointx2 = [pointx2.'; x3(1)].'; % Collects x values for equilibrium point 2 (if the point exists)
+                    pointy2 = [pointy2.'; x3(2)].'; % Collects y values for equilibrium point 2 (if the point exists)
+                
+                    test = [test.';u].';
+                end
+            end
+           
+            if u == 10
+                if v == 0.7
+                    pointx3 = [pointx3.'; x3(1)].'; % Collects x values for equilibrium point 3 (if the point exists)
+                    pointy3 = [pointy3.'; x3(2)].'; % Collects y values for equilibrium point 3 (if the point exists)
+                end
+            end
+            
+        end
+        
+        
+        
+    end
+    
+    
+
+
+    alpha = [alpha.'; a].';
+
+
+    
+
+end
+
+% plotting
+
+figure(1)
+plot(alpha,pointx1,'k*','linewidth',3)
+hold on
+plot(alpha,pointx2,'b*','linewidth',3)
+hold on
+plot(alpha,pointx3,'r*','linewidth',3)
+xlabel('alpha')
+ylabel('x-values of equilibrium point')
+
+
+figure(2)
+plot(alpha,pointy1,'k*','linewidth',3)
+hold on
+plot(alpha,pointy2,'b*','linewidth',3)
+hold on
+plot(alpha,pointy3,'r*','linewidth',3)
+xlabel('alpha')
+ylabel('y-values of equilibrium point')
